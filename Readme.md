@@ -33,65 +33,65 @@ by α + β·(r/R). Find α and β in exact terms.
 
 ### Setup
 
-Model the celestial sphere as S². A planet at direction **u** is visible from surface point **p** iff **u**·**p** > 0 (it lies in the open hemisphere above the horizon). Define:
+Model the celestial sphere as $S^2$. A planet at direction $\mathbf{u}$ is visible from surface point $\mathbf{p}$ iff $\mathbf{u} \cdot \mathbf{p} > 0$ (it lies in the open hemisphere above the horizon). Define:
 
 - **Event A**: all 6 planets lie in some open hemisphere (a parade is visible from *somewhere* on Pyrknot).
-- **Event B(ε)**: all 6 planets are visible from the tower at **p**, where ε = r/R.
+- **Event B(ε)**: all 6 planets are visible from the tower at $\mathbf{p}$, where $\varepsilon = r/R$.
 
-We need P(B(ε) | A) ≈ α + β·ε.
+We need $P(B(\varepsilon) \mid A) \approx \alpha + \beta \cdot \varepsilon$.
 
 ### Finding P(A) via Wendel's formula
 
-The probability that n independent uniform points on S^(d−1) all lie in some open hemisphere is:
+The probability that $n$ independent uniform points on $S^{d-1}$ all lie in some open hemisphere is:
 
-```
-p(n, d) = 2^(1-n) * sum_{k=0}^{d-1} C(n-1, k)
-```
+$$p(n, d) = 2^{1-n} \sum_{k=0}^{d-1} \binom{n-1}{k}$$
 
-The celestial sphere is S² (d = 3) and n = 6:
+The celestial sphere is $S^2$ ($d = 3$) and $n = 6$:
 
-```
-P(A) = 2^(-5) * [C(5,0) + C(5,1) + C(5,2)] = (1 + 5 + 10) / 32 = 1/2
-```
+$$P(A) = 2^{-5} \left[ \binom{5}{0} + \binom{5}{1} + \binom{5}{2} \right] = \frac{1 + 5 + 10}{32} = \frac{1}{2}$$
 
 ### Finding α
 
-The friend is at a fixed point **p**. By symmetry, each planet's "height" h = **u**·**p** is uniform on [-1, 1], and the 6 heights are independent. All 6 are visible from **p** iff all h_i > 0:
+The friend is at a fixed point $\mathbf{p}$. By symmetry, each planet's "height" $h = \mathbf{u} \cdot \mathbf{p}$ is uniform on $[-1, 1]$, and the 6 heights are independent. All 6 are visible from $\mathbf{p}$ iff all $h_i > 0$:
 
-```
-P(B(0)) = (1/2)^6 = 1/64
-```
+$$P(B(0)) = \left(\frac{1}{2}\right)^6 = \frac{1}{64}$$
 
-Since B(0) is a subset of A (if the friend sees all 6, some hemisphere contains all 6):
+Since $B(0) \subseteq A$ (if the friend sees all 6, some hemisphere contains all 6):
 
-```
-α = P(B(0)) / P(A) = (1/64) / (1/2) = 1/32
-```
+$$\alpha = \frac{P(B(0))}{P(A)} = \frac{1/64}{1/2} = \frac{1}{32}$$
 
 ### Tower geometry
 
-The tower at **p** sees every direction **u** visible from any surface point within geodesic distance r of the base. A direction **u** at angle φ from **p** is visible from a surface point **q** at angle θ = r/R from **p** when **q** is tilted toward **u**, giving visibility when:
+The tower at $\mathbf{p}$ sees every direction $\mathbf{u}$ visible from any surface point within geodesic distance $r$ of the base. A direction $\mathbf{u}$ at angle $\varphi$ from $\mathbf{p}$ is visible from a surface point $\mathbf{q}$ at angle $\theta = r/R$ from $\mathbf{p}$ when $\mathbf{q}$ is tilted toward $\mathbf{u}$, giving visibility when:
 
-```
-cos(φ - θ) > 0   =>   φ < π/2 + θ   =>   u·p > -sin(θ) ≈ -ε
-```
+$$\cos(\varphi - \theta) > 0 \implies \varphi < \frac{\pi}{2} + \theta \implies \mathbf{u} \cdot \mathbf{p} > -\sin\theta \approx -\varepsilon$$
 
-So the tower sees direction **u** iff **u**·**p** > -ε, and:
+So the tower sees direction $\mathbf{u}$ iff $\mathbf{u} \cdot \mathbf{p} > -\varepsilon$, and:
 
-```
-P(B(ε)) = ((1 + ε) / 2)^6
-```
+$$P(B(\varepsilon)) = \left(\frac{1 + \varepsilon}{2}\right)^6$$
 
 ### Finding β
 
-We need P(B(ε) ∩ A^c) = O(ε²) to justify the approximation P(B(ε) | A) ≈ P(B(ε)) / P(A). The event B(ε) \ A requires all 6 planets in the expanded cap (h_i > -ε) yet no hemisphere containing all 6. This requires at least two planets in the thin band h_i ∈ (-ε, 0) in adversarial positions -- a codimension-2 condition with probability O(ε²). So to first order:
+#### Theoretical solution
 
-```
-P(B(ε) | A) ≈ P(B(ε)) / P(A)
-             = ((1 + ε) / 2)^6 / (1/2)
-             = (1 + ε)^6 / 32
-             ≈ (1 + 6ε) / 32
-             = 1/32 + (3/16)·ε
-```
+We need $P(B(\varepsilon) \cap A^c) = O(\varepsilon^2)$ to justify the approximation $P(B(\varepsilon) \mid A) \approx P(B(\varepsilon)) / P(A)$. The event $B(\varepsilon) \setminus A$ requires all 6 planets in the expanded cap ($h_i > -\varepsilon$) yet no hemisphere containing all 6. This requires at least two planets in the thin band $h_i \in (-\varepsilon, 0)$ in adversarial positions -- a codimension-2 condition with probability $O(\varepsilon^2)$. So to first order:
 
-Therefore **β = 3/16**.
+$$P(B(\varepsilon) \mid A) \approx \frac{P(B(\varepsilon))}{P(A)} = \frac{\left(\frac{1+\varepsilon}{2}\right)^6}{\frac{1}{2}} = \frac{(1 + \varepsilon)^6}{32} \approx \frac{1 + 6\varepsilon}{32} = \frac{1}{32} + \frac{3}{16} \cdot \varepsilon$$
+
+Therefore $\beta = 3/16$.
+
+#### Computational solution
+
+The Rust program (`src/main.rs`) performs a Monte Carlo verification of the theoretical result. Over 10 million independent trials it:
+
+1. **Samples 6 planets uniformly on $S^2$** by drawing $\cos\theta \sim \text{Uniform}(-1, 1)$ and $\varphi \sim \text{Uniform}(0, 2\pi)$, then converting to Cartesian coordinates.
+
+2. **Tests Event A** (parade exists somewhere) by checking whether all 6 points lie in some open hemisphere. For continuous random points this is decided by checking $O(n^2)$ candidate hemispheres: those centered at each point, and those whose bounding great circle passes through each pair of points.
+
+3. **Tests Event B(ε)** (tower visibility) by fixing the friend at the north pole $\mathbf{p} = (0, 0, 1)$ and checking that the minimum height $h_{\min} = \min_i \mathbf{u}_i \cdot \mathbf{p} > -\varepsilon$, which is the tower visibility condition derived above.
+
+4. **Estimates α and β** from the conditional counts:
+   - $\hat{\alpha} = (\text{count of } B(0) \cap A) / (\text{count of } A)$
+   - For each $\varepsilon$ in $\{0.001, 0.005, 0.01, 0.02\}$: $\hat{\beta}_\varepsilon = (\hat{P}(B(\varepsilon) \mid A) - \hat{\alpha}) / \varepsilon$
+
+As $\varepsilon \to 0$ the estimates converge to the theoretical values $\alpha = 1/32$ and $\beta = 3/16$.
